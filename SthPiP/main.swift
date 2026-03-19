@@ -67,6 +67,10 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     private func showStatusMenu() {
         let menu = NSMenu()
 
+        let version = Bundle.main.infoDictionary?["CFBundleShortVersionString"] as? String ?? "?"
+        menu.addItem(NSMenuItem(title: "SthPiP v\(version)", action: nil, keyEquivalent: ""))
+        menu.addItem(NSMenuItem.separator())
+
         let loginItem = NSMenuItem(title: "Open at Login", action: #selector(toggleLaunchAtLogin), keyEquivalent: "")
         loginItem.target = self
         loginItem.state = isLaunchAgentInstalled() ? .on : .off
