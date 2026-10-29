@@ -9,10 +9,14 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var previewLayer: AVCaptureVideoPreviewLayer!
     var containerView: CameraView!
     var statusItem: NSStatusItem!
-    var isVisible = false
+    let broadcaster = StateBroadcast("com.sth.pip")
+    var isVisible = false {
+        didSet { broadcaster.publish(["state": isVisible ? "visible" : "hidden"]) }
+    }
 
     func applicationDidFinishLaunching(_ notification: Notification) {
         NSApp.setActivationPolicy(.accessory)
+        broadcaster.publish(["state": "hidden"])
 
         setupStatusBar()
     }
